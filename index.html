@@ -3,92 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poker Master Simulator — Complete Odds Engine</title>
+<title>Poker Master Simulator</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@400;600&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --felt: #0d3320;
-  --felt-light: #145c38;
-  --felt-dark: #061510;
-  --gold: #c9a84c;
-  --gold-light: #e8c96a;
-  --gold-dark: #7a5e20;
-  --card-bg: #faf7f0;
-  --card-border: #c8b890;
-  --red: #c0392b;
-  --black: #1a1a1a;
-  --white: #f5f0e8;
-  --accent: #2ecc71;
-  --danger: #e74c3c;
-  --warn: #f39c12;
-  --text: #e8d9b0;
-  --text-dim: #8a7a5a;
-  --mono: 'IBM Plex Mono', monospace;
-  --serif: 'Playfair Display', serif;
-  --body: 'Crimson Pro', Georgia, serif;
+  --felt: #0d3320; --felt-light: #145c38; --felt-dark: #061510;
+  --gold: #c9a84c; --gold-light: #e8c96a; --gold-dark: #7a5e20;
+  --card-bg: #faf7f0; --card-border: #c8b890;
+  --red: #c0392b; --black: #1a1a1a; --white: #f5f0e8;
+  --accent: #2ecc71; --danger: #e74c3c; --warn: #f39c12;
+  --text: #e8d9b0; --text-dim: #8a7a5a;
+  --mono: 'IBM Plex Mono', monospace; --serif: 'Playfair Display', serif; --body: 'Crimson Pro', Georgia, serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--felt-dark);
-  color: var(--text);
-  font-family: var(--body);
-  font-size: 16px;
-  min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse at 50% 0%, #163a22 0%, transparent 60%),
-    repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 6px);
-}
-header {
-  text-align: center;
-  padding: 1.5rem 1rem 1rem;
-  border-bottom: 2px solid var(--gold-dark);
-  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
-  position: relative;
-}
-header::before {
-  content: '♠  ♥  ♦  ♣';
-  position: absolute;
-  top: 0.4rem; left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.85rem;
-  letter-spacing: 1.8rem;
-  color: var(--gold-dark);
-  opacity: 0.7;
-}
-header h1 {
-  font-family: var(--serif);
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
-  font-weight: 900;
-  color: var(--gold);
-  text-shadow: 0 2px 24px rgba(201,168,76,0.35);
-  letter-spacing: 0.04em;
-  margin-top: 1.2rem;
-}
-header p { color: var(--text-dim); font-style: italic; margin-top: 0.25rem; font-size:0.9rem; }
-.tabs {
-  display: flex;
-  overflow-x: auto;
-  background: rgba(0,0,0,0.35);
-  border-bottom: 1px solid var(--gold-dark);
-  padding: 0 0.5rem;
-  scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar { display:none; }
-.tab-btn {
-  padding: 0.75rem 1rem;
-  background: none;
-  border: none;
-  color: var(--text-dim);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  white-space: nowrap;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
+body { background: var(--felt-dark); color: var(--text); font-family: var(--body); font-size: 16px; min-height: 100vh;
+  background-image: radial-gradient(ellipse at 50% 0%, #163a22 0%, transparent 60%), repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 6px); }
+header { text-align: center; padding: 1.5rem 1rem 1rem; border-bottom: 2px solid var(--gold-dark); background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%); position: relative; }
+header::before { content: '♠  ♥  ♦  ♣'; position: absolute; top: 0.4rem; left: 50%; transform: translateX(-50%); font-size: 0.85rem; letter-spacing: 1.8rem; color: var(--gold-dark); opacity: 0.7; }
+header h1 { font-family: var(--serif); font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 900; color: var(--gold); text-shadow: 0 2px 24px rgba(201,168,76,0.35); letter-spacing: 0.04em; margin-top: 1.2rem; }
+header p { color: var(--text-dim); font-style: italic; margin-top: 0.25rem; font-size: 0.9rem; }
+.tabs { display: flex; overflow-x: auto; background: rgba(0,0,0,0.35); border-bottom: 1px solid var(--gold-dark); padding: 0 0.5rem; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 0.75rem 1rem; background: none; border: none; color: var(--text-dim); font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; flex-shrink: 0; }
 .tab-btn:hover { color: var(--text); }
 .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
 .tab-btn.play-btn { color: #4ade80; }
@@ -97,27 +33,12 @@ header p { color: var(--text-dim); font-style: italic; margin-top: 0.25rem; font
 .tab-content.active { display: block; animation: fadeUp 0.25s ease; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-/* Playing Cards */
-.playing-card {
-  width: 40px; height: 55px;
-  background: var(--card-bg);
-  border: 1.5px solid var(--card-border);
-  border-radius: 5px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  cursor: pointer;
-  font-family: var(--mono);
-  font-weight: 600;
-  transition: all 0.14s;
-  user-select: none;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-  color: var(--black);
-  flex-shrink: 0;
-}
-.playing-card .c-rank { font-size: 0.72rem; font-weight: 700; line-height: 1; }
-.playing-card .c-suit { font-size: 0.78rem; line-height: 1; }
+/* ── Playing Cards (bigger) ── */
+.playing-card { width: 46px; height: 62px; background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; font-family: var(--mono); font-weight: 600; transition: all 0.14s; user-select: none; box-shadow: 0 2px 5px rgba(0,0,0,0.4); color: var(--black); flex-shrink: 0; }
+.playing-card .c-rank { font-size: 0.8rem; font-weight: 700; line-height: 1; }
+.playing-card .c-suit { font-size: 0.9rem; line-height: 1; }
 .playing-card.red { color: var(--red); }
-.playing-card:hover:not(.used) { transform: translateY(-4px); box-shadow: 0 6px 14px rgba(0,0,0,0.5); }
+.playing-card:hover:not(.used) { transform: translateY(-5px); box-shadow: 0 8px 18px rgba(0,0,0,0.5); }
 .playing-card.sel-hero   { background:#152a50; color:#7ab4ff; border-color:#4a8aff; box-shadow:0 0 9px #4a8aff66; }
 .playing-card.sel-hero.red { color:#ffaaaa; }
 .playing-card.sel-villain{ background:#3a1010; color:#ff8888; border-color:#ee3333; box-shadow:0 0 9px #ee333366; }
@@ -127,91 +48,49 @@ header p { color: var(--text-dim); font-style: italic; margin-top: 0.25rem; font
 .playing-card.used { opacity:0.25; cursor:not-allowed; pointer-events:none; }
 .deck-row { display:flex; gap:3px; margin-bottom:3px; flex-wrap:wrap; }
 
-/* Large display cards */
-.hand-card {
-  width: 50px; height: 68px;
-  background: var(--card-bg);
-  border: 2px solid var(--card-border);
-  border-radius: 6px;
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  padding: 3px 4px;
-  font-family: var(--mono); font-weight: 700;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.45);
-  flex-shrink: 0;
-}
-.hand-card .h-top { font-size:0.72rem; line-height:1; }
-.hand-card .h-mid { font-size:1.3rem; text-align:center; line-height:1; }
-.hand-card .h-bot { font-size:0.72rem; line-height:1; transform:rotate(180deg); align-self:flex-end; }
+/* ── Hand display cards ── */
+.hand-card { width:58px; height:80px; background:var(--card-bg); border:2px solid var(--card-border); border-radius:7px; display:flex; flex-direction:column; justify-content:space-between; padding:4px 5px; font-family:var(--mono); font-weight:700; box-shadow:0 3px 10px rgba(0,0,0,0.45); flex-shrink:0; }
+.hand-card .h-top { font-size:0.82rem; line-height:1; }
+.hand-card .h-mid { font-size:1.5rem; text-align:center; line-height:1; }
+.hand-card .h-bot { font-size:0.82rem; line-height:1; transform:rotate(180deg); align-self:flex-end; }
 .hand-card.red { color: var(--red); }
-.hand-card.empty {
-  background: rgba(255,255,255,0.04);
-  border: 2px dashed rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.18);
-  display: flex; align-items:center; justify-content:center; font-size:1.1rem;
-}
-.hand-display { display:flex; gap:5px; flex-wrap:wrap; align-items:center; min-height:76px; }
+.hand-card.empty { background:rgba(255,255,255,0.04); border:2px dashed rgba(255,255,255,0.18); color:rgba(255,255,255,0.18); display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+.hand-display { display:flex; gap:5px; flex-wrap:wrap; align-items:center; min-height:88px; }
 
-/* Panels */
-.panel {
-  background: rgba(0,0,0,0.28);
-  border: 1px solid rgba(201,168,76,0.18);
-  border-radius: 8px;
-  padding: 1.1rem;
-  margin-bottom: 1rem;
-  position: relative;
-}
-.panel-title {
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  color: var(--gold);
-  margin-bottom: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-style: italic;
-}
+/* ── Game cards (bigger) ── */
+.gcard { width:44px; height:62px; background:var(--card-bg); border:2px solid var(--card-border); border-radius:5px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:0.82rem; color:var(--black); box-shadow:0 3px 8px rgba(0,0,0,0.5); line-height:1.2; flex-shrink:0; }
+.gcard.is-red { color:var(--red); }
+.gcard.is-back { background:linear-gradient(135deg,#1a3a8a 0%,#0d1f4a 100%); color:rgba(255,255,255,0.6); font-size:1.3rem; border-color:#2a4a9a; }
+.gcard.is-empty { background:rgba(0,0,0,0.2); border:2px dashed rgba(255,255,255,0.1); box-shadow:none; }
+.gcard-comm { width:52px; height:72px; background:var(--card-bg); border:2.5px solid var(--card-border); border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:0.95rem; color:var(--black); box-shadow:0 4px 12px rgba(0,0,0,0.5); line-height:1.2; flex-shrink:0; animation:cardDeal 0.3s ease; }
+@keyframes cardDeal { from{transform:scale(0.6) rotate(-5deg);opacity:0;}to{transform:scale(1) rotate(0deg);opacity:1;} }
+.gcard-comm.is-red { color:var(--red); }
+.gcard-comm.is-empty { background:rgba(255,255,255,0.04); border:2.5px dashed rgba(255,255,255,0.1); box-shadow:none; }
+
+/* ── Panels ── */
+.panel { background:rgba(0,0,0,0.28); border:1px solid rgba(201,168,76,0.18); border-radius:8px; padding:1.1rem; margin-bottom:1rem; position:relative; }
+.panel-title { font-family:var(--serif); font-size:0.95rem; color:var(--gold); margin-bottom:0.8rem; text-transform:uppercase; letter-spacing:0.1em; font-style:italic; }
 .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
 .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; }
 .grid-4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.75rem; }
 @media(max-width:720px){ .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr 1fr; } }
 @media(max-width:480px){ .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; } }
-
 .stat-box { background:rgba(0,0,0,0.32); border:1px solid rgba(201,168,76,0.25); border-radius:6px; padding:0.8rem 0.6rem; text-align:center; }
 .stat-label { font-family:var(--mono); font-size:0.62rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-dim); margin-bottom:0.25rem; }
 .stat-value { font-family:var(--mono); font-size:1.8rem; font-weight:600; color:var(--gold-light); line-height:1; }
-.stat-value.green { color:#4ade80; }
-.stat-value.red { color:#f87171; }
-.stat-value.yellow { color:#fbbf24; }
+.stat-value.green { color:#4ade80; } .stat-value.red { color:#f87171; } .stat-value.yellow { color:#fbbf24; }
 .stat-sub { font-size:0.72rem; color:var(--text-dim); margin-top:0.2rem; }
-
-.btn {
-  padding:0.55rem 1.2rem;
-  border:1.5px solid var(--gold-dark);
-  background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04));
-  color:var(--gold);
-  font-family:var(--mono); font-size:0.72rem;
-  text-transform:uppercase; letter-spacing:0.1em;
-  cursor:pointer; border-radius:4px; transition:all 0.18s;
-}
-.btn:hover { background:linear-gradient(135deg,rgba(201,168,76,0.28),rgba(201,168,76,0.1)); border-color:var(--gold); box-shadow:0 0 12px rgba(201,168,76,0.2); }
+.btn { padding:0.55rem 1.2rem; border:1.5px solid var(--gold-dark); background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04)); color:var(--gold); font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; border-radius:4px; transition:all 0.18s; }
+.btn:hover { background:linear-gradient(135deg,rgba(201,168,76,0.28),rgba(201,168,76,0.1)); border-color:var(--gold); }
 .btn.primary { background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:var(--felt-dark); border-color:var(--gold); font-weight:600; }
-.btn.primary:hover { box-shadow:0 0 22px rgba(201,168,76,0.5); }
 .btn.sm { padding:0.3rem 0.7rem; font-size:0.64rem; }
 .btn.danger { border-color:#922; color:#f87171; background:rgba(192,57,43,0.1); }
 .btn-row { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; margin-top:0.6rem; }
-
 .slider-group { margin:0.6rem 0; }
 .slider-label { display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); margin-bottom:0.28rem; }
 .slider-label span { color:var(--gold); font-weight:600; }
-input[type=range] {
-  width:100%; -webkit-appearance:none; height:5px;
-  background:rgba(201,168,76,0.15); border-radius:3px; outline:none;
-}
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance:none; width:15px; height:15px; border-radius:50%;
-  background:var(--gold); cursor:pointer; box-shadow:0 0 7px rgba(201,168,76,0.5);
-}
-
+input[type=range] { width:100%; -webkit-appearance:none; height:5px; background:rgba(201,168,76,0.15); border-radius:3px; outline:none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:15px; height:15px; border-radius:50%; background:var(--gold); cursor:pointer; }
 .pbar { height:26px; background:rgba(0,0,0,0.3); border-radius:4px; overflow:hidden; display:flex; margin:0.5rem 0; }
 .pbar-fill { height:100%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.68rem; font-weight:600; transition:width 0.5s ease; min-width:2px; }
 .fill-blue { background:linear-gradient(90deg,#1a4a8a,#2d8fd8); }
@@ -219,274 +98,115 @@ input[type=range]::-webkit-slider-thumb {
 .fill-green{ background:linear-gradient(90deg,#1a5a2a,#27ae60); }
 .fill-gray { background:rgba(100,100,100,0.35); color:#888; }
 .fill-gold { background:linear-gradient(90deg,#7a5e20,#c9a84c); color:#1a1008; }
-
-.info-box {
-  background:rgba(201,168,76,0.07);
-  border:1px solid rgba(201,168,76,0.22);
-  border-left:4px solid var(--gold);
-  border-radius:0 6px 6px 0;
-  padding:0.75rem 1rem;
-  font-size:0.83rem;
-  margin:0.6rem 0;
-  color:var(--text);
-  line-height:1.65;
-}
+.info-box { background:rgba(201,168,76,0.07); border:1px solid rgba(201,168,76,0.22); border-left:4px solid var(--gold); border-radius:0 6px 6px 0; padding:0.75rem 1rem; font-size:0.83rem; margin:0.6rem 0; color:var(--text); line-height:1.65; }
 .info-box strong { color:var(--gold); }
 .info-box.green { border-left-color:#4ade80; background:rgba(74,222,128,0.06); }
 .info-box.red   { border-left-color:#f87171; background:rgba(248,113,113,0.06); }
 .info-box.blue  { border-left-color:#60a5fa; background:rgba(96,165,250,0.06); }
-
-.formula-box {
-  background:rgba(0,0,0,0.45);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:6px;
-  padding:0.75rem 1rem;
-  font-family:var(--mono); font-size:0.77rem;
-  margin:0.5rem 0; color:var(--text);
-  line-height:1.7; overflow-x:auto;
-}
+.formula-box { background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:0.75rem 1rem; font-family:var(--mono); font-size:0.77rem; margin:0.5rem 0; color:var(--text); line-height:1.7; overflow-x:auto; }
 .formula-box .hl { color:var(--gold); }
-
 .ev-box { font-family:var(--mono); font-size:1.6rem; font-weight:600; text-align:center; padding:0.9rem 1rem; border-radius:6px; margin:0.5rem 0; }
 .ev-pos  { background:rgba(74,222,128,0.12); color:#4ade80; border:1px solid rgba(74,222,128,0.25); }
 .ev-neg  { background:rgba(248,113,113,0.12); color:#f87171; border:1px solid rgba(248,113,113,0.25); }
 .ev-zero { background:rgba(251,191,36,0.12); color:#fbbf24; border:1px solid rgba(251,191,36,0.25); }
-
 table { width:100%; border-collapse:collapse; font-size:0.82rem; }
 th { background:rgba(201,168,76,0.12); color:var(--gold); font-family:var(--mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; padding:0.45rem 0.65rem; text-align:left; border-bottom:1px solid var(--gold-dark); }
 td { padding:0.4rem 0.65rem; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--text); font-family:var(--mono); font-size:0.77rem; }
 tr:hover td { background:rgba(255,255,255,0.025); }
 .td-g { color:#4ade80; } .td-y { color:#fbbf24; } .td-r { color:#f87171; }
-
 .radio-group { display:flex; gap:0.4rem; flex-wrap:wrap; margin:0.4rem 0; }
-.rbn {
-  padding:0.35rem 0.75rem;
-  border:1px solid rgba(201,168,76,0.28);
-  border-radius:4px;
-  font-family:var(--mono); font-size:0.68rem;
-  cursor:pointer; color:var(--text-dim); transition:all 0.15s;
-  background:transparent;
-}
+.rbn { padding:0.35rem 0.75rem; border:1px solid rgba(201,168,76,0.28); border-radius:4px; font-family:var(--mono); font-size:0.68rem; cursor:pointer; color:var(--text-dim); transition:all 0.15s; background:transparent; }
 .rbn:hover { border-color:var(--gold-dark); color:var(--text); }
 .rbn.active { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.1); }
-
-.mode-pill {
-  display:inline-flex; align-items:center; gap:0.35rem;
-  font-family:var(--mono); font-size:0.68rem;
-  padding:0.3rem 0.7rem; border-radius:4px;
-  margin:0.25rem 0.2rem; cursor:pointer;
-  border:1.5px solid; transition:all 0.15s;
-}
-.mode-hero    { border-color:#4a8aff; color:#7ab4ff; }
-.mode-hero.active   { background:rgba(74,138,255,0.18); }
-.mode-villain { border-color:#ee3333; color:#ff8888; }
-.mode-villain.active{ background:rgba(238,51,51,0.18); }
-.mode-board   { border-color:#33cc55; color:#5eff88; }
-.mode-board.active  { background:rgba(51,204,85,0.18); }
+.mode-pill { display:inline-flex; align-items:center; gap:0.35rem; font-family:var(--mono); font-size:0.68rem; padding:0.3rem 0.7rem; border-radius:4px; margin:0.25rem 0.2rem; cursor:pointer; border:1.5px solid; transition:all 0.15s; }
+.mode-hero    { border-color:#4a8aff; color:#7ab4ff; } .mode-hero.active   { background:rgba(74,138,255,0.18); }
+.mode-villain { border-color:#ee3333; color:#ff8888; } .mode-villain.active{ background:rgba(238,51,51,0.18); }
+.mode-board   { border-color:#33cc55; color:#5eff88; } .mode-board.active  { background:rgba(51,204,85,0.18); }
 .mode-clear   { border-color:#666; color:#aaa; }
-
 .outs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:0.4rem; }
-.out-item {
-  background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08);
-  border-radius:5px; padding:0.45rem 0.6rem;
-  display:flex; align-items:center; gap:0.45rem;
-  cursor:pointer; transition:all 0.14s;
-}
+.out-item { background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.08); border-radius:5px; padding:0.45rem 0.6rem; display:flex; align-items:center; gap:0.45rem; cursor:pointer; transition:all 0.14s; }
 .out-item:hover { border-color:var(--gold-dark); }
 .out-item.active { border-color:var(--gold); background:rgba(201,168,76,0.09); }
 .out-item input[type=checkbox] { accent-color:var(--gold); width:13px; height:13px; flex-shrink:0; }
 .out-count { margin-left:auto; font-family:var(--mono); font-size:0.68rem; color:var(--gold); background:rgba(201,168,76,0.14); padding:1px 6px; border-radius:10px; flex-shrink:0; }
-
-.hr-item {
-  background:rgba(0,0,0,0.22); border-left:3px solid var(--gold);
-  padding:0.75rem 1rem; margin-bottom:0.45rem;
-  border-radius:0 6px 6px 0;
-  display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap;
-}
+.hr-item { background:rgba(0,0,0,0.22); border-left:3px solid var(--gold); padding:0.75rem 1rem; margin-bottom:0.45rem; border-radius:0 6px 6px 0; display:flex; align-items:center; gap:0.9rem; flex-wrap:wrap; }
 .hr-num { font-family:var(--mono); font-size:1.1rem; color:var(--gold); font-weight:700; min-width:28px; }
 .hr-name { font-family:var(--serif); font-size:1.05rem; font-weight:700; min-width:160px; }
 .hr-desc { font-size:0.82rem; color:var(--text-dim); flex:1; line-height:1.5; }
 .mini-hand { display:flex; gap:3px; }
-.mc {
-  width:30px; height:42px;
-  background:var(--card-bg); border:1.5px solid var(--card-border); border-radius:4px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  font-size:0.58rem; font-weight:700; font-family:var(--mono); color:var(--black);
-  box-shadow:0 1px 4px rgba(0,0,0,0.35); line-height:1.1; text-align:center;
-}
+.mc { width:30px; height:42px; background:var(--card-bg); border:1.5px solid var(--card-border); border-radius:4px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:0.58rem; font-weight:700; font-family:var(--mono); color:var(--black); box-shadow:0 1px 4px rgba(0,0,0,0.35); line-height:1.1; text-align:center; }
 .mc.r { color:var(--red); }
-
 .hands-chart { display:grid; grid-template-columns:repeat(13,1fr); gap:2px; }
-.hc {
-  aspect-ratio:1; display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  font-family:var(--mono); font-size:clamp(0.42rem,1.1vw,0.62rem);
-  border-radius:3px; cursor:pointer; transition:all 0.1s;
-  line-height:1.2; text-align:center; border:1px solid transparent;
-}
+.hc { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:var(--mono); font-size:clamp(0.42rem,1.1vw,0.62rem); border-radius:3px; cursor:pointer; transition:all 0.1s; line-height:1.2; text-align:center; border:1px solid transparent; }
 .hc:hover { transform:scale(1.18); z-index:10; position:relative; border-color:var(--gold); }
-.hc.premium { background:#143a14; color:#4ade80; }
-.hc.strong  { background:#1a3318; color:#86efac; }
-.hc.playable{ background:#282808; color:#fde68a; }
-.hc.marginal{ background:#281808; color:#fdba74; }
-.hc.weak    { background:#280808; color:#fca5a5; }
-
+.hc.premium { background:#143a14; color:#4ade80; } .hc.strong { background:#1a3318; color:#86efac; }
+.hc.playable{ background:#282808; color:#fde68a; } .hc.marginal{ background:#281808; color:#fdba74; } .hc.weak { background:#280808; color:#fca5a5; }
 .scenario-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:0.75rem; }
-.sc-card {
-  background:rgba(0,0,0,0.25); border:1px solid rgba(201,168,76,0.18);
-  border-radius:8px; padding:0.9rem; cursor:pointer; transition:all 0.2s;
-}
+.sc-card { background:rgba(0,0,0,0.25); border:1px solid rgba(201,168,76,0.18); border-radius:8px; padding:0.9rem; cursor:pointer; transition:all 0.2s; }
 .sc-card:hover { border-color:var(--gold); background:rgba(201,168,76,0.05); transform:translateY(-2px); }
 .sc-title { font-family:var(--serif); color:var(--gold); font-size:0.92rem; margin-bottom:0.25rem; }
 .sc-desc { font-size:0.78rem; color:var(--text-dim); margin-bottom:0.5rem; line-height:1.5; }
 .sc-tag { font-family:var(--mono); font-size:0.58rem; padding:1px 6px; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.18); border-radius:10px; color:var(--text-dim); }
-
-input[type=number] {
-  background:rgba(0,0,0,0.35); border:1px solid rgba(201,168,76,0.28);
-  color:var(--text); padding:0.38rem 0.55rem; border-radius:4px;
-  font-family:var(--mono); font-size:0.78rem; width:88px;
-}
+input[type=number] { background:rgba(0,0,0,0.35); border:1px solid rgba(201,168,76,0.28); color:var(--text); padding:0.38rem 0.55rem; border-radius:4px; font-family:var(--mono); font-size:0.78rem; width:88px; }
 input[type=number]:focus { outline:none; border-color:var(--gold); }
-
-#hc-tooltip {
-  position:fixed; background:rgba(5,15,8,0.97);
-  border:1px solid var(--gold); border-radius:6px;
-  padding:0.55rem 0.8rem; font-family:var(--mono); font-size:0.7rem;
-  color:var(--text); pointer-events:none; z-index:1000;
-  display:none; max-width:210px; line-height:1.5;
-}
-
-.loading-overlay {
-  position:absolute; inset:0; background:rgba(0,0,0,0.72);
-  display:none; align-items:center; justify-content:center;
-  border-radius:8px; font-family:var(--mono); color:var(--gold);
-  font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; z-index:50;
-}
+#hc-tooltip { position:fixed; background:rgba(5,15,8,0.97); border:1px solid var(--gold); border-radius:6px; padding:0.55rem 0.8rem; font-family:var(--mono); font-size:0.7rem; color:var(--text); pointer-events:none; z-index:1000; display:none; max-width:210px; line-height:1.5; }
+.loading-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.72); display:none; align-items:center; justify-content:center; border-radius:8px; font-family:var(--mono); color:var(--gold); font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; z-index:50; }
 .loading-overlay.show { display:flex; }
-.spinner {
-  display:inline-block; width:14px; height:14px;
-  border:2px solid var(--gold-dark); border-top-color:var(--gold);
-  border-radius:50%; animation:spin 0.6s linear infinite; margin-right:0.5rem;
-}
+.spinner { display:inline-block; width:14px; height:14px; border:2px solid var(--gold-dark); border-top-color:var(--gold); border-radius:50%; animation:spin 0.6s linear infinite; margin-right:0.5rem; }
 @keyframes spin{ to{transform:rotate(360deg)} }
-
 .gto-matrix { display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; }
 .gto-cell { background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.2); border-radius:6px; padding:0.6rem; text-align:center; }
 .gto-cell .gc-label { font-family:var(--mono); font-size:0.62rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); }
 .gto-cell .gc-val { font-family:var(--mono); font-size:1.1rem; font-weight:600; color:var(--gold-light); margin-top:0.2rem; }
-
 .range-grid { display:grid; grid-template-columns:repeat(13,1fr); gap:2px; margin-top:0.5rem; }
-.rg-cell {
-  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
-  font-family:var(--mono); font-size:0.5rem; border-radius:2px;
-  cursor:pointer; transition:all 0.1s; border:1px solid transparent;
-  user-select:none;
-}
+.rg-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.5rem; border-radius:2px; cursor:pointer; transition:all 0.1s; border:1px solid transparent; user-select:none; }
 .rg-cell.in-range { background:rgba(74,222,128,0.35); color:#4ade80; border-color:rgba(74,222,128,0.4); }
 .rg-cell.out-range { background:rgba(0,0,0,0.25); color:rgba(255,255,255,0.18); }
 .rg-cell:hover { transform:scale(1.15); z-index:5; position:relative; border-color:var(--gold); }
-
 hr.div { border:none; border-top:1px solid rgba(201,168,76,0.13); margin:0.9rem 0; }
-.mt { margin-top:0.8rem; }
-.mt2 { margin-top:1.4rem; }
+.mt { margin-top:0.8rem; } .mt2 { margin-top:1.4rem; }
 .label { font-family:var(--mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:0.28rem; display:block; }
 .flex { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
-
 .icm-player { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem; padding:0.5rem 0.7rem; background:rgba(0,0,0,0.2); border:1px solid rgba(201,168,76,0.12); border-radius:5px; }
 .icm-player input[type=number] { width:80px; }
 .icm-player .icm-name { font-family:var(--mono); font-size:0.7rem; color:var(--text-dim); min-width:70px; }
 .icm-player .icm-eq { font-family:var(--mono); font-size:0.78rem; color:var(--gold); margin-left:auto; }
-
 .kelly-box { background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.3); border-radius:6px; padding:1rem; text-align:center; }
 .kelly-pct { font-family:var(--mono); font-size:2.5rem; font-weight:700; color:var(--gold-light); }
 .kelly-label { font-family:var(--mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-dim); margin-top:0.25rem; }
 
-/* ══════════════ GAME TAB ══════════════ */
-#tab-play { padding: 0.75rem; max-width: 1200px; }
-.game-layout {
-  display: grid;
-  grid-template-columns: 1fr 260px;
-  gap: 1rem;
-  align-items: start;
-}
+/* ══ GAME LAYOUT ══ */
+#tab-play { padding: 0.75rem; max-width: 1400px; }
+.game-layout { display: grid; grid-template-columns: 1fr 220px; gap: 1rem; align-items: start; }
 @media(max-width:900px){ .game-layout { grid-template-columns: 1fr; } }
 
-.table-stage {
-  position: relative;
-  padding: 90px 100px 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.felt-table {
-  position: relative;
-  width: 100%;
-  max-width: 580px;
-  aspect-ratio: 16/10;
-  background: radial-gradient(ellipse at 40% 40%, #2a7a48 0%, #1a5a30 40%, #0e3a1c 100%);
-  border-radius: 50%;
-  border: 10px solid #5c3a10;
-  box-shadow:
-    0 0 0 3px #3a2008,
-    0 0 0 6px #8a6030,
-    0 0 0 8px #3a2008,
-    0 20px 60px rgba(0,0,0,0.7),
-    inset 0 0 80px rgba(0,0,0,0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
-.felt-table::before {
-  content: '';
-  position: absolute;
-  inset: 12px;
-  border-radius: 50%;
-  border: 2px dashed rgba(255,255,255,0.06);
-  pointer-events: none;
-}
-
+.table-stage { position: relative; padding: 80px 90px 90px; display: flex; align-items: center; justify-content: center; }
+.felt-table { position: relative; width: 100%; max-width: 580px; aspect-ratio: 16/10; background: radial-gradient(ellipse at 40% 40%, #2a7a48 0%, #1a5a30 40%, #0e3a1c 100%); border-radius: 50%; border: 10px solid #5c3a10; box-shadow: 0 0 0 3px #3a2008, 0 0 0 6px #8a6030, 0 0 0 8px #3a2008, 0 20px 60px rgba(0,0,0,0.7), inset 0 0 80px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+.felt-table::before { content: ''; position: absolute; inset: 12px; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.06); pointer-events: none; }
 .table-center { display:flex; flex-direction:column; align-items:center; gap:6px; z-index:2; }
-.tc-pot { font-family:var(--mono); font-size:0.85rem; font-weight:600; color:var(--gold); background:rgba(0,0,0,0.5); border:1px solid rgba(201,168,76,0.3); border-radius:20px; padding:3px 14px; letter-spacing:0.06em; }
-.tc-phase { font-family:var(--mono); font-size:0.58rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.15em; }
-.tc-community { display:flex; gap:4px; margin:2px 0; }
-.tc-msg { font-family:var(--serif); font-size:0.82rem; color:#4ade80; text-align:center; max-width:220px; min-height:1.2em; font-style:italic; }
+.tc-pot { font-family:var(--mono); font-size:0.9rem; font-weight:600; color:var(--gold); background:rgba(0,0,0,0.5); border:1px solid rgba(201,168,76,0.3); border-radius:20px; padding:3px 14px; letter-spacing:0.06em; }
+.tc-phase { font-family:var(--mono); font-size:0.6rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.15em; }
+.tc-community { display:flex; gap:5px; margin:2px 0; }
+.tc-msg { font-family:var(--serif); font-size:0.85rem; color:#4ade80; text-align:center; max-width:240px; min-height:1.2em; font-style:italic; }
 
-.game-seat {
-  position: absolute;
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  z-index: 10; transition: opacity 0.3s;
-}
+.game-seat { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 4px; z-index: 10; transition: opacity 0.3s; }
 .gs-pos-0 { bottom:4px;  left:50%;  transform:translateX(-50%); }
 .gs-pos-1 { left:4px;    top:50%;   transform:translateY(-50%); }
 .gs-pos-2 { top:4px;     left:25%;  transform:translateX(-50%); }
 .gs-pos-3 { top:4px;     left:75%;  transform:translateX(-50%); }
 .gs-pos-4 { right:4px;   top:50%;   transform:translateY(-50%); }
-
-.gs-avatar { width:36px; height:36px; border-radius:50%; border:2px solid rgba(201,168,76,0.3); display:flex; align-items:center; justify-content:center; font-size:1.1rem; background:rgba(0,0,0,0.5); transition:border-color 0.3s, box-shadow 0.3s; }
+.gs-avatar { width:38px; height:38px; border-radius:50%; border:2px solid rgba(201,168,76,0.3); display:flex; align-items:center; justify-content:center; font-size:1.1rem; background:rgba(0,0,0,0.5); transition:border-color 0.3s, box-shadow 0.3s; }
 .gs-name { font-family:var(--mono); font-size:0.6rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap; }
 .gs-chips-lbl { font-family:var(--mono); font-size:0.62rem; color:var(--gold); white-space:nowrap; }
 .gs-bet-lbl { font-family:var(--mono); font-size:0.58rem; color:#fbbf24; min-height:0.8em; white-space:nowrap; }
 .gs-action-lbl { font-family:var(--mono); font-size:0.55rem; color:#aaa; min-height:0.8em; white-space:nowrap; }
 .gs-hand-row { display:flex; gap:3px; }
 .gs-dealer-btn { font-size:0.55rem; background:var(--gold); color:#000; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; font-weight:700; font-family:var(--mono); }
-
 .game-seat.is-active .gs-avatar { border-color:#4ade80; box-shadow:0 0 18px rgba(74,222,128,0.6); }
 .game-seat.is-active .gs-name { color:#4ade80; }
 .game-seat.is-folded { opacity:0.28; }
 .game-seat.is-winner .gs-avatar { border-color:var(--gold); box-shadow:0 0 22px rgba(201,168,76,0.8); animation:winPulse 0.8s ease-in-out infinite alternate; }
 @keyframes winPulse { from{box-shadow:0 0 14px rgba(201,168,76,0.5);}to{box-shadow:0 0 30px rgba(201,168,76,1);} }
-
-.gcard { width:34px; height:48px; background:var(--card-bg); border:1.5px solid var(--card-border); border-radius:4px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:0.68rem; color:var(--black); box-shadow:0 2px 6px rgba(0,0,0,0.5); line-height:1.15; flex-shrink:0; }
-.gcard.is-red { color:var(--red); }
-.gcard.is-back { background:linear-gradient(135deg,#1a3a8a 0%,#0d1f4a 100%); color:rgba(255,255,255,0.5); font-size:1.1rem; border-color:#2a4a9a; }
-.gcard.is-empty { background:rgba(0,0,0,0.2); border:1.5px dashed rgba(255,255,255,0.1); box-shadow:none; }
-
-.gcard-comm { width:42px; height:58px; background:var(--card-bg); border:2px solid var(--card-border); border-radius:5px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:0.8rem; color:var(--black); box-shadow:0 3px 10px rgba(0,0,0,0.5); line-height:1.2; flex-shrink:0; animation:cardDeal 0.3s ease; }
-@keyframes cardDeal { from{transform:scale(0.6) rotate(-5deg);opacity:0;}to{transform:scale(1) rotate(0deg);opacity:1;} }
-.gcard-comm.is-red { color:var(--red); }
-.gcard-comm.is-empty { background:rgba(255,255,255,0.04); border:2px dashed rgba(255,255,255,0.1); box-shadow:none; }
 
 .action-panel { display:none; flex-direction:column; gap:0.5rem; background:rgba(0,0,0,0.55); border:1px solid rgba(201,168,76,0.25); border-radius:10px; padding:0.75rem 1rem; margin-top:0.5rem; max-width:640px; margin-left:auto; margin-right:auto; }
 .action-panel.visible { display:flex; }
@@ -494,27 +214,26 @@ hr.div { border:none; border-top:1px solid rgba(201,168,76,0.13); margin:0.9rem 
 .action-btn { padding:0.6rem 1.4rem; border-radius:6px; font-family:var(--mono); font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; cursor:pointer; border:2px solid; transition:all 0.18s; }
 .action-btn:disabled { opacity:0.35; cursor:not-allowed; }
 .abtn-fold  { border-color:#922; color:#f87171; background:rgba(192,57,43,0.12); }
-.abtn-fold:hover:not(:disabled)  { background:rgba(192,57,43,0.3); box-shadow:0 0 14px rgba(192,57,43,0.4); }
+.abtn-fold:hover:not(:disabled)  { background:rgba(192,57,43,0.3); }
 .abtn-check { border-color:#555; color:#aaa; background:rgba(80,80,80,0.15); }
 .abtn-check:hover:not(:disabled) { background:rgba(80,80,80,0.3); }
 .abtn-call  { border-color:#2a6a5a; color:#5eff88; background:rgba(46,204,113,0.1); }
-.abtn-call:hover:not(:disabled)  { background:rgba(46,204,113,0.25); box-shadow:0 0 14px rgba(46,204,113,0.35); }
+.abtn-call:hover:not(:disabled)  { background:rgba(46,204,113,0.25); }
 .abtn-raise { border-color:var(--gold-dark); color:var(--gold); background:rgba(201,168,76,0.1); }
-.abtn-raise:hover:not(:disabled) { background:rgba(201,168,76,0.25); box-shadow:0 0 14px rgba(201,168,76,0.4); }
+.abtn-raise:hover:not(:disabled) { background:rgba(201,168,76,0.25); }
 .abtn-allin { border-color:#aa4400; color:#ff8833; background:rgba(170,68,0,0.12); }
-.abtn-allin:hover:not(:disabled) { background:rgba(170,68,0,0.3); box-shadow:0 0 14px rgba(255,136,51,0.4); }
+.abtn-allin:hover:not(:disabled) { background:rgba(170,68,0,0.3); }
 .abtn-deal  { border-color:var(--gold); color:var(--felt-dark); background:linear-gradient(135deg,var(--gold),var(--gold-dark)); font-size:0.8rem; padding:0.7rem 2rem; }
-.abtn-deal:hover { box-shadow:0 0 22px rgba(201,168,76,0.6); filter:brightness(1.1); }
-
+.abtn-deal:hover { filter:brightness(1.1); }
 .raise-row { display:flex; align-items:center; gap:0.5rem; justify-content:center; flex-wrap:wrap; }
 .raise-row label { font-family:var(--mono); font-size:0.65rem; color:var(--text-dim); text-transform:uppercase; }
 .raise-row input[type=range] { width:140px; }
 .raise-row .raise-val { font-family:var(--mono); font-size:0.75rem; color:var(--gold); min-width:50px; text-align:right; }
 
-.game-side { display:flex; flex-direction:column; gap:0.75rem; }
+.game-side { display:flex; flex-direction:column; gap:0.6rem; }
 .gside-panel { background:rgba(0,0,0,0.3); border:1px solid rgba(201,168,76,0.15); border-radius:8px; padding:0.75rem; }
 .gside-title { font-family:var(--mono); font-size:0.62rem; color:var(--gold-dark); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.5rem; border-bottom:1px solid rgba(201,168,76,0.1); padding-bottom:0.3rem; }
-.game-log-area { height:220px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--gold-dark) transparent; }
+.game-log-area { height:150px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--gold-dark) transparent; }
 .log-entry { font-family:var(--mono); font-size:0.6rem; color:var(--text-dim); line-height:1.9; padding:0 2px; }
 .log-entry.log-win { color:#4ade80; font-weight:600; }
 .log-entry.log-hand { color:var(--gold); font-weight:600; }
@@ -526,6 +245,61 @@ hr.div { border:none; border-top:1px solid rgba(201,168,76,0.13); margin:0.9rem 
 .pb-tig { color:#60a5fa; border-color:rgba(96,165,250,0.4); background:rgba(96,165,250,0.08); }
 .pb-loo { color:#fbbf24; border-color:rgba(251,191,36,0.4); background:rgba(251,191,36,0.08); }
 .pb-pas { color:#a78bfa; border-color:rgba(167,139,250,0.4); background:rgba(167,139,250,0.08); }
+
+/* ══ LIVE ANALYTICS PANEL ══ */
+.analytics-panel {
+  background: rgba(0,0,0,0.38);
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: 10px;
+  padding: 0.85rem;
+  margin-bottom: 1rem;
+}
+.analytics-title {
+  font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--gold-dark); margin-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(201,168,76,0.12); padding-bottom: 0.3rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.analytics-title .live-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #4ade80;
+  animation: blink 1.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+.win-pct-ring {
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; margin: 0.5rem 0;
+}
+.win-pct-num {
+  font-family: var(--mono); font-size: 2.2rem; font-weight: 700;
+  line-height: 1; text-align: center; transition: color 0.4s;
+}
+.win-pct-label { font-family:var(--mono); font-size:0.58rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; margin-top:2px; }
+.win-bar-track { width:100%; height:10px; background:rgba(0,0,0,0.4); border-radius:6px; overflow:hidden; margin:0.4rem 0; }
+.win-bar-fill { height:100%; border-radius:6px; transition:width 0.5s ease, background 0.4s; }
+.an-row { display:flex; justify-content:space-between; align-items:center; padding:0.3rem 0; border-bottom:1px solid rgba(255,255,255,0.04); }
+.an-row:last-child { border-bottom:none; }
+.an-label { font-family:var(--mono); font-size:0.58rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.07em; }
+.an-value { font-family:var(--mono); font-size:0.7rem; font-weight:600; color:var(--text); }
+
+/* Action recommendation badge */
+.rec-badge {
+  display: block; text-align: center; padding: 0.5rem 0.6rem;
+  border-radius: 6px; font-family: var(--mono); font-size: 0.72rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  margin-top: 0.55rem; transition: all 0.3s;
+}
+.rec-fold   { background:rgba(192,57,43,0.18);  color:#f87171; border:1px solid rgba(248,113,113,0.3); }
+.rec-check  { background:rgba(80,80,80,0.2);    color:#aaa;    border:1px solid rgba(150,150,150,0.25); }
+.rec-call   { background:rgba(46,204,113,0.14); color:#4ade80; border:1px solid rgba(74,222,128,0.3); }
+.rec-raise  { background:rgba(201,168,76,0.14); color:var(--gold); border:1px solid rgba(201,168,76,0.3); }
+.rec-allin  { background:rgba(255,136,51,0.14); color:#ff8833; border:1px solid rgba(255,136,51,0.3); }
+.rec-wait   { background:rgba(0,0,0,0.2);       color:var(--text-dim); border:1px solid rgba(255,255,255,0.06); }
+.rec-sub { font-family:var(--body); font-size:0.68rem; color:var(--text-dim); margin-top:0.35rem; text-align:center; line-height:1.5; font-style:italic; }
+
+.an-mini-pbar { display:flex; height:5px; border-radius:3px; overflow:hidden; margin:0.2rem 0; }
+.an-mini-fill-blue  { background:#2d8fd8; transition:width 0.5s; }
+.an-mini-fill-red   { background:#c0392b; transition:width 0.5s; }
+.an-mini-fill-gray  { background:#555; transition:width 0.5s; }
 </style>
 </head>
 <body>
@@ -549,7 +323,7 @@ hr.div { border:none; border-top:1px solid rgba(201,168,76,0.13); margin:0.9rem 
   <button class="tab-btn" onclick="showTab('reference',this)">📚 Reference</button>
 </nav>
 
-<!-- ═══ TAB: PLAY ═══ -->
+<!-- ═══ PLAY TAB ═══ -->
 <div id="tab-play" class="tab-content active">
   <div class="game-layout">
     <div>
@@ -582,7 +356,62 @@ hr.div { border:none; border-top:1px solid rgba(201,168,76,0.13); margin:0.9rem 
         <button class="btn sm" style="margin-left:0.5rem; color:#f87171" onclick="initGame()">New Game</button>
       </div>
     </div>
+
+    <!-- Right sidebar -->
     <div class="game-side">
+
+      <!-- LIVE ANALYTICS -->
+      <div class="analytics-panel" id="analytics-panel">
+        <div class="analytics-title">
+          <span>Live Analytics</span>
+          <div class="live-dot" id="an-live-dot" style="background:#555;animation:none;"></div>
+        </div>
+
+        <div class="win-pct-ring">
+          <div class="win-pct-num" id="an-win-pct" style="color:var(--text-dim)">—</div>
+          <div class="win-pct-label">Win probability</div>
+        </div>
+
+        <div class="win-bar-track">
+          <div class="win-bar-fill" id="an-win-bar" style="width:0%;background:#555;"></div>
+        </div>
+
+        <div class="an-mini-pbar" id="an-trio-bar">
+          <div class="an-mini-fill-blue" id="an-trio-win" style="width:0%"></div>
+          <div class="an-mini-fill-gray" id="an-trio-tie" style="width:0%"></div>
+          <div class="an-mini-fill-red"  id="an-trio-lose" style="width:100%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:0.55rem;color:var(--text-dim);margin-bottom:0.4rem;">
+          <span id="an-win-lbl">Win</span>
+          <span id="an-tie-lbl">Tie</span>
+          <span id="an-lose-lbl">Lose</span>
+        </div>
+
+        <div class="an-row">
+          <span class="an-label">Hand</span>
+          <span class="an-value" id="an-hand-cat">—</span>
+        </div>
+        <div class="an-row">
+          <span class="an-label">Pot Odds</span>
+          <span class="an-value" id="an-pot-odds">—</span>
+        </div>
+        <div class="an-row">
+          <span class="an-label">SPR</span>
+          <span class="an-value" id="an-spr">—</span>
+        </div>
+        <div class="an-row">
+          <span class="an-label">Outs (est.)</span>
+          <span class="an-value" id="an-outs">—</span>
+        </div>
+        <div class="an-row">
+          <span class="an-label">EV of call</span>
+          <span class="an-value" id="an-ev-call">—</span>
+        </div>
+
+        <div class="rec-badge rec-wait" id="an-rec-badge">Waiting for hand</div>
+        <div class="rec-sub" id="an-rec-sub"></div>
+      </div>
+
       <div class="gside-panel">
         <div class="gside-title">Players</div>
         <div id="player-list"></div>
@@ -606,7 +435,7 @@ hr.div { border:none; border-top:1px solid rgba(201,168,76,0.13); margin:0.9rem 
   </div>
 </div>
 
-<!-- ═══ TAB: EQUITY ═══ -->
+<!-- ═══ EQUITY ═══ -->
 <div id="tab-equity" class="tab-content">
   <div class="grid-2">
     <div>
@@ -874,7 +703,7 @@ hr.div { border:none; border-top:1px solid rgba(201,168,76,0.13); margin:0.9rem 
         <div class="panel-title">🎰 Raise / 3-Bet EV</div>
         <div class="slider-group"><div class="slider-label">Pot Before Raise (bb) <span id="raise-pot-lbl">60</span></div><input type="range" min="1" max="500" step="1" value="60" id="raise-pot" oninput="document.getElementById('raise-pot-lbl').textContent=this.value; raiseUpdate()"></div>
         <div class="slider-group"><div class="slider-label">Raise Total (bb) <span id="raise-amt-lbl">80</span></div><input type="range" min="1" max="500" step="1" value="80" id="raise-amt" oninput="document.getElementById('raise-amt-lbl').textContent=this.value; raiseUpdate()"></div>
-        <div class="slider-group"><div class="slider-label">Fold Equity % <span id="raise-fe-lbl">50</span>%</div><input type="range" min="0" max="99" step="1" value="50" id="raise-fe" oninput="document.getElementById('raise-fe-lbl').textContent=this.value; raiseUpdate()"></div>
+        <div class="slider-group"><div class="slider-label">Fold Equity % <span id="raise-fe-lbl">50</span></div><input type="range" min="0" max="99" step="1" value="50" id="raise-fe" oninput="document.getElementById('raise-fe-lbl').textContent=this.value; raiseUpdate()"></div>
         <div class="slider-group"><div class="slider-label">Win % if Called <span id="raise-win-lbl">60</span>%</div><input type="range" min="1" max="99" step="1" value="60" id="raise-win" oninput="document.getElementById('raise-win-lbl').textContent=this.value; raiseUpdate()"></div>
         <div id="raise-result" class="ev-box ev-pos mt"></div>
         <div class="formula-box mt" id="raise-formula"></div>
@@ -1081,6 +910,7 @@ function initGame(){
   document.getElementById('btn-deal').style.display='inline-block';
   hideActionPanel(); setMsg('Deal a hand to begin! 🎯');
   addLog('=== New Game Started ===','hand');
+  resetAnalytics();
 }
 
 function freshDeck(){ const d=Array.from({length:52},(_,i)=>i); for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];} return d; }
@@ -1107,7 +937,7 @@ function newHand(){
 
 function postBlind(idx,amount){ const p=G.players[idx]; const blind=Math.min(amount,p.chips); p.chips-=blind; p.bet=blind; p.totalBet=blind; G.pot+=blind; if(p.chips===0) p.allIn=true; }
 
-function scheduleAction(){ const p=G.players[G.currentIdx]; if(!p||p.folded||p.allIn){advanceTurn();return;} renderTable(); if(p.isHuman) showActionPanel(); else { hideActionPanel(); G.botTimeout=setTimeout(executeBotAction,700+Math.random()*800); } }
+function scheduleAction(){ const p=G.players[G.currentIdx]; if(!p||p.folded||p.allIn){advanceTurn();return;} renderTable(); if(p.isHuman){showActionPanel();updateLiveAnalytics();}else{hideActionPanel();G.botTimeout=setTimeout(executeBotAction,700+Math.random()*800);} }
 
 function humanAction(action){ if(G.phase==='idle'||G.phase==='showdown') return; const p=G.players[G.currentIdx]; if(!p||!p.isHuman) return; hideActionPanel(); if(action==='raise'){ const amt=parseInt(document.getElementById('raise-slider').value); executeAction(G.currentIdx,'raise',amt); } else executeAction(G.currentIdx,action); }
 
@@ -1170,15 +1000,216 @@ function doShowdown(){
   if(G.pot>G.stats.biggestPot) G.stats.biggestPot=G.pot;
   winners.forEach(w=>{const seat=document.getElementById('gseat-'+w.player.id);if(seat) seat.classList.add('is-winner');});
   renderTable(); setMsg(winMsg);
+  resetAnalytics();
   G.botTimeout=setTimeout(endHand,3200);
 }
 
-function awardToLastStanding(winner){ winner.chips+=G.pot; addLog(`${winner.name} wins ${G.pot} (all others folded)`,'win'); if(winner.isHuman) G.stats.handsWon++; if(G.pot>G.stats.biggestPot) G.stats.biggestPot=G.pot; G.phase='showdown'; const seat=document.getElementById('gseat-'+winner.id); if(seat) seat.classList.add('is-winner'); renderTable(); setMsg(`🏆 ${winner.name} wins ${G.pot} chips!`); G.botTimeout=setTimeout(endHand,2500); }
+function awardToLastStanding(winner){ winner.chips+=G.pot; addLog(`${winner.name} wins ${G.pot} (all others folded)`,'win'); if(winner.isHuman) G.stats.handsWon++; if(G.pot>G.stats.biggestPot) G.stats.biggestPot=G.pot; G.phase='showdown'; const seat=document.getElementById('gseat-'+winner.id); if(seat) seat.classList.add('is-winner'); renderTable(); setMsg(`🏆 ${winner.name} wins ${G.pot} chips!`); resetAnalytics(); G.botTimeout=setTimeout(endHand,2500); }
 function endHand(){ hideActionPanel(); document.getElementById('btn-deal').style.display='inline-block'; updateSessionStats(); renderTable(); setMsg('Click "Deal Cards" for the next hand.'); }
 
 // ─── Bot AI ───
 function executeBotAction(){ const p=G.players[G.currentIdx]; if(!p||p.folded||p.allIn||p.isHuman) return; const strength=getBotStrength(p); const callAmt=Math.min(G.currentBet-p.bet,p.chips); const canCheck=callAmt<=0; const potOdds=callAmt>0?callAmt/(G.pot+callAmt):0; const rand=Math.random(); const agg={aggressive:0.72,tight:0.4,loose:0.6,passive:0.3}[p.style]||0.5; const tight={aggressive:0.45,tight:0.72,loose:0.35,passive:0.55}[p.style]||0.5; if(canCheck){ if(strength>0.6&&rand<agg){ const betSz=Math.min(p.chips+p.bet,G.currentBet+Math.max(BB_AMT,Math.floor(G.pot*(0.45+rand*0.55)))); executeAction(G.currentIdx,'raise',betSz); } else executeAction(G.currentIdx,'check'); } else { if(strength>0.85-tight*0.2){ if(rand<agg&&p.chips>callAmt*2){ const rTo=Math.min(p.chips+p.bet,G.currentBet+Math.max(G.minRaise,Math.floor(G.pot*(0.6+rand*0.6)))); executeAction(G.currentIdx,'raise',rTo); } else executeAction(G.currentIdx,'call'); } else if(strength>potOdds+0.08-tight*0.1||(rand<0.12*agg)) executeAction(G.currentIdx,'call'); else executeAction(G.currentIdx,'fold'); } }
 function getBotStrength(p){ if(G.phase==='preflop'){ const r1=cRank(p.hand[0]),r2=cRank(p.hand[1]); const hi=Math.max(r1,r2),lo=Math.min(r1,r2),suited=cSuit(p.hand[0])===cSuit(p.hand[1]),paired=r1===r2; let s=0; if(paired) s=0.4+hi/12*0.5; else{s=(hi+lo)/24*0.55;if(suited)s+=0.08;if(hi===12)s+=0.12;if(hi-lo<=2)s+=0.05;} return Math.min(0.99,s); } else { const cards=[...p.hand,...G.community]; if(cards.length<5) return 0.3; const score=evalBest(cards); const cat=score>>24; return Math.min(0.99,cat/8+0.05+Math.random()*0.04); } }
+
+// ══════════════════════════════════════
+// LIVE ANALYTICS ENGINE
+// ══════════════════════════════════════
+function resetAnalytics(){
+  const dot=document.getElementById('an-live-dot');
+  if(dot){dot.style.background='#555';dot.style.animation='none';}
+  const w=document.getElementById('an-win-pct'); if(w){w.textContent='—';w.style.color='var(--text-dim)';}
+  const bar=document.getElementById('an-win-bar'); if(bar){bar.style.width='0%';bar.style.background='#555';}
+  ['an-trio-win','an-trio-tie'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.width='0%';});
+  const lose=document.getElementById('an-trio-lose');if(lose)lose.style.width='100%';
+  ['an-win-lbl','an-tie-lbl','an-lose-lbl'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=id.includes('win')?'Win':id.includes('tie')?'Tie':'Lose';});
+  const rec=document.getElementById('an-rec-badge'); if(rec){rec.className='rec-badge rec-wait';rec.textContent='Waiting for hand';}
+  const sub=document.getElementById('an-rec-sub'); if(sub) sub.textContent='';
+  ['an-hand-cat','an-pot-odds','an-spr','an-outs','an-ev-call'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='—';});
+}
+
+function monteCarloFast(hero,board,sims=2000){
+  const known=new Set([...hero,...board]);
+  const deck=Array.from({length:52},(_,i)=>i).filter(c=>!known.has(c));
+  let hw=0,vw=0,t=0;
+  for(let i=0;i<sims;i++){
+    const d=[...deck]; for(let j=d.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[d[j],d[k]]=[d[k],d[j]];}
+    let idx=0;
+    const villain=[d[idx++],d[idx++]];
+    const sb=[...board]; while(sb.length<5) sb.push(d[idx++]);
+    const hv=evalBest([...hero,...sb]),vv=evalBest([...villain,...sb]);
+    if(hv>vv) hw++; else if(vv>hv) vw++; else t++;
+  }
+  return{win:hw/sims*100,tie:t/sims*100,lose:vw/sims*100};
+}
+
+function estimateOuts(hero,board){
+  if(board.length<3) return null;
+  const heroSuits=hero.map(cSuit);
+  const heroRanks=hero.map(cRank);
+  const allCards=[...hero,...board];
+  const allRanks=allCards.map(cRank);
+  const allSuits=allCards.map(cSuit);
+  let outs=0;
+  // Flush draw
+  for(let s=0;s<4;s++){if(allSuits.filter(x=>x===s).length===4) outs+=9;}
+  // Straight draw (simplified OESD / gutshot)
+  const u=[...new Set(allRanks)].sort((a,b)=>a-b);
+  let maxConsec=1,cur=1;
+  for(let i=1;i<u.length;i++){if(u[i]-u[i-1]===1)cur++;else cur=1;maxConsec=Math.max(maxConsec,cur);}
+  if(maxConsec===4) outs+=8;
+  else if(maxConsec===3) outs+=4;
+  return Math.min(21,outs);
+}
+
+function updateLiveAnalytics(){
+  const human=G.players[0];
+  if(!human||human.hand.length<2||G.phase==='idle'||G.phase==='showdown'){resetAnalytics();return;}
+
+  const dot=document.getElementById('an-live-dot');
+  if(dot){dot.style.background='#4ade80';dot.style.animation='blink 1.4s ease-in-out infinite';}
+
+  // Monte Carlo
+  const res=monteCarloFast(human.hand,G.community,2500);
+  const winPct=res.win;
+
+  // Win pct display
+  const wpEl=document.getElementById('an-win-pct');
+  if(wpEl){
+    wpEl.textContent=winPct.toFixed(1)+'%';
+    wpEl.style.color=winPct>55?'#4ade80':winPct>40?'#fbbf24':'#f87171';
+  }
+
+  // Win bar
+  const bar=document.getElementById('an-win-bar');
+  if(bar){
+    bar.style.width=winPct+'%';
+    bar.style.background=winPct>55?'linear-gradient(90deg,#1a5a2a,#27ae60)':winPct>40?'linear-gradient(90deg,#7a5e10,#c9a840)':'linear-gradient(90deg,#7a1414,#c0392b)';
+  }
+
+  // Trio bar
+  const tw=document.getElementById('an-trio-win'),tt=document.getElementById('an-trio-tie'),tl=document.getElementById('an-trio-lose');
+  if(tw)tw.style.width=res.win+'%'; if(tt)tt.style.width=res.tie+'%'; if(tl)tl.style.width=res.lose+'%';
+  const wl=document.getElementById('an-win-lbl'),tiel=document.getElementById('an-tie-lbl'),ll=document.getElementById('an-lose-lbl');
+  if(wl)wl.textContent='Win '+res.win.toFixed(0)+'%';
+  if(tiel)tiel.textContent='Tie '+res.tie.toFixed(0)+'%';
+  if(ll)ll.textContent='Lose '+res.lose.toFixed(0)+'%';
+
+  // Hand category
+  const handEl=document.getElementById('an-hand-cat');
+  if(handEl){
+    if(G.community.length>=3){
+      const score=evalBest([...human.hand,...G.community]);
+      const cat=handCat(score);
+      handEl.textContent=cat;
+      handEl.style.color=score>>24>=5?'#4ade80':score>>24>=2?'#fbbf24':'var(--text)';
+    } else {
+      handEl.textContent=getPreFlopNick(human.hand);
+      handEl.style.color='var(--text)';
+    }
+  }
+
+  // Pot odds
+  const callAmt=Math.min(G.currentBet-human.bet,human.chips);
+  const po=document.getElementById('an-pot-odds');
+  if(po){
+    if(callAmt>0){
+      const reqEq=callAmt/(G.pot+callAmt)*100;
+      po.textContent=reqEq.toFixed(1)+'% needed';
+      po.style.color=winPct>reqEq?'#4ade80':'#f87171';
+    } else {
+      po.textContent='No bet to call';
+      po.style.color='var(--text-dim)';
+    }
+  }
+
+  // SPR
+  const sprEl=document.getElementById('an-spr');
+  if(sprEl&&G.pot>0){
+    const spr=(human.chips/G.pot).toFixed(2);
+    sprEl.textContent=spr;
+    sprEl.style.color=parseFloat(spr)>4?'#4ade80':parseFloat(spr)>1.5?'#fbbf24':'#f87171';
+  }
+
+  // Outs estimate
+  const outsEl=document.getElementById('an-outs');
+  if(outsEl){
+    if(G.community.length>=3){
+      const o=estimateOuts(human.hand,G.community);
+      if(o!==null&&o>0){
+        const mult=G.community.length===3?4:2;
+        outsEl.textContent=`~${o} (${Math.min(100,o*mult).toFixed(0)}%)`;
+        outsEl.style.color='#fbbf24';
+      } else { outsEl.textContent='Outs: see board'; outsEl.style.color='var(--text-dim)'; }
+    } else { outsEl.textContent='Post-flop only'; outsEl.style.color='var(--text-dim)'; }
+  }
+
+  // EV of call
+  const evEl=document.getElementById('an-ev-call');
+  if(evEl){
+    if(callAmt>0){
+      const w=winPct/100,l=1-w;
+      const ev=(w*(G.pot+callAmt)-l*callAmt).toFixed(1);
+      evEl.textContent=(ev>=0?'+':'')+ev+' chips';
+      evEl.style.color=parseFloat(ev)>0?'#4ade80':'#f87171';
+    } else { evEl.textContent='—'; evEl.style.color='var(--text-dim)'; }
+  }
+
+  // Recommendation
+  buildRecommendation(winPct,callAmt,human);
+}
+
+function buildRecommendation(winPct,callAmt,player){
+  const rec=document.getElementById('an-rec-badge');
+  const sub=document.getElementById('an-rec-sub');
+  if(!rec||!sub) return;
+
+  const canCheck=callAmt<=0;
+  const reqEq=callAmt>0?callAmt/(G.pot+callAmt)*100:0;
+  const spr=G.pot>0?player.chips/G.pot:99;
+
+  let action,cls,reason;
+
+  if(G.phase==='preflop'){
+    if(winPct>60){action='Raise';cls='rec-raise';reason='Premium hand — build the pot aggressively.';}
+    else if(winPct>50&&callAmt<=BB_AMT*2){action='Call';cls='rec-call';reason='Good equity, decent price to see the flop.';}
+    else if(winPct>50&&canCheck){action='Check';cls='rec-check';reason='Solid hand — happy to see a free flop.';}
+    else if(winPct>45&&callAmt<=BB_AMT){action='Call';cls='rec-call';reason='Marginal — only worth a min-call here.';}
+    else if(canCheck){action='Check';cls='rec-check';reason='Weak hand, but it\'s free to see the flop.';}
+    else{action='Fold';cls='rec-fold';reason='Low equity vs a raise — not worth the chips.';}
+  } else if(G.phase==='river'){
+    if(canCheck){
+      if(winPct>65){action='Raise';cls='rec-raise';reason='Strong hand on river — value bet for max chips.';}
+      else{action='Check';cls='rec-check';reason='Check for pot control or to induce a bluff.';}
+    } else {
+      if(winPct>reqEq+8){action='Call';cls='rec-call';reason=`${winPct.toFixed(0)}% win vs ${reqEq.toFixed(0)}% needed — clear call.`;}
+      else if(winPct>reqEq){action='Call';cls='rec-call';reason='Slightly profitable call — marginal but +EV.';}
+      else{action='Fold';cls='rec-fold';reason=`Only ${winPct.toFixed(0)}% equity, need ${reqEq.toFixed(0)}% — fold.`;}
+    }
+  } else {
+    if(canCheck){
+      if(winPct>70){action='Raise';cls='rec-raise';reason='Strong hand — bet for value and deny draws.';}
+      else if(winPct>50){action='Check';cls='rec-check';reason='Decent hand — can bet or check-call.';}
+      else{action='Check';cls='rec-check';reason='Weak hand — pot control, see a free card.';}
+    } else {
+      if(winPct>reqEq+10&&spr>2){action='Raise';cls='rec-raise';reason=`${winPct.toFixed(0)}% equity — re-raise for value!`;}
+      else if(winPct>reqEq+4){action='Call';cls='rec-call';reason=`${winPct.toFixed(0)}% win vs ${reqEq.toFixed(0)}% needed — profitable.`;}
+      else if(winPct>reqEq){action='Call';cls='rec-call';reason='Thin call — marginal edge, pot odds justify it.';}
+      else{action='Fold';cls='rec-fold';reason=`Equity (${winPct.toFixed(0)}%) < price (${reqEq.toFixed(0)}%) — fold.`;}
+    }
+  }
+
+  rec.className='rec-badge '+cls;
+  rec.textContent='▶ '+action;
+  sub.textContent=reason;
+}
+
+function getPreFlopNick(cards){
+  const r1=cRank(cards[0]),r2=cRank(cards[1]),s1=cSuit(cards[0]),s2=cSuit(cards[1]);
+  const hi=Math.max(r1,r2),lo=Math.min(r1,r2),suited=s1===s2;
+  if(r1===r2) return `Pocket ${RANKS[r1]}s`;
+  const nicknames={[12*13+11]:'AK — Big Slick',[12*13+10]:'AQ — Little Slick',[12*13+9]:'AJ',[11*13+10]:'KQ — Marriage'};
+  return nicknames[hi*13+lo]||`${RANKS[hi]}${RANKS[lo]}${suited?'s':'o'}`;
+}
 
 // ─── UI Rendering ───
 function buildSeats(){
@@ -1357,18 +1388,18 @@ function icmUpdate(){const stacks=[...document.querySelectorAll('.icm-stack')].m
 function icmCalc(stacks,prizes){const n=stacks.length;const total=stacks.reduce((a,b)=>a+b,0);if(!total)return stacks.map(()=>0);const equity=new Array(n).fill(0);function recurse(remaining,prizeIdx,prob){if(prizeIdx>=prizes.length||!prizes[prizeIdx])return;const chipSum=remaining.reduce((a,b)=>a+b,0);remaining.forEach((chips,i)=>{if(!chips)return;const p=chips/chipSum;const contribution=prob*p*prizes[prizeIdx];const origIdx=remaining.__origIdx?remaining.__origIdx[i]:i;equity[origIdx]+=contribution;const next=[...remaining];const nextIdx=[...(remaining.__origIdx||remaining.map((_,j)=>j))];next.splice(i,1);nextIdx.splice(i,1);next.__origIdx=nextIdx;recurse(next,prizeIdx+1,prob*p);});}const indexed=[...stacks];indexed.__origIdx=stacks.map((_,i)=>i);recurse(indexed,0,1);return equity;}
 function icmPreset(t){const presets={bubble:{stacks:[20000,15000,12000,3000],prizes:[50,30,20,0],total:1000},ft:{stacks:[30000,25000,20000,15000],prizes:[40,30,20,10],total:10000}};const p=presets[t];if(!p)return;const stackEls=document.querySelectorAll('.icm-stack');stackEls.forEach((el,i)=>{if(p.stacks[i]!==undefined)el.value=p.stacks[i];});['icm-p1','icm-p2','icm-p3','icm-p4'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.value=p.prizes[i];});const tot=document.getElementById('icm-total');if(tot)tot.value=p.total;icmUpdate();}
 
-// ─── Push/Fold ───
+// Push/Fold
 const PF_RANGES={BTN:{2:169,5:120,10:80,15:60,20:45},CO:{2:140,5:100,10:65,15:50,20:35},SB:{2:150,5:110,10:75,15:55,20:40},BB:{2:169,5:130,10:90,15:65,20:50}};
 function pfUpdate(){const stack=parseInt(document.getElementById('pf-stack')?.value||10);const grid=document.getElementById('pf-range-grid');const advice=document.getElementById('pf-advice');if(!grid)return;const ranks=['A','K','Q','J','T','9','8','7','6','5','4','3','2'];const threshold=PF_RANGES[pfPos]?.[Math.min(20,Math.max(2,Math.round(stack/5)*5))]||80;const allHands=[];for(let i=0;i<13;i++)for(let j=0;j<13;j++){const hi=ranks[Math.min(i,j)],lo=ranks[Math.max(i,j)];allHands.push(i===j?hi+lo:(j<i?hi+lo+'s':hi+lo+'o'));}grid.innerHTML='';allHands.forEach((h,idx)=>{const inRange=idx<threshold;const div=document.createElement('div');div.className='rg-cell '+(inRange?'in-range':'out-range');div.textContent=h;grid.appendChild(div);});if(advice)advice.innerHTML=`<strong>${pfPos} with ${stack}BB:</strong> Push top <strong>${threshold}/169</strong> hands (~${(threshold/169*100).toFixed(0)}% of range). ${stack<=6?'Very short — push very wide.':stack<=12?'Short stack — push/fold is optimal.':'Medium stack — push/fold for clear +EV spots.'}`;}
 function setPfPos(pos,btn){pfPos=pos;document.querySelectorAll('#tab-icm .radio-group .rbn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');pfUpdate();}
 
-// ─── Kelly ───
+// Kelly
 function kellyUpdate(){const win=parseFloat(document.getElementById('kelly-win')?.value||55)/100,odds=parseFloat(document.getElementById('kelly-odds')?.value||1.0),br=parseFloat(document.getElementById('kelly-br')?.value||1000),lose=1-win,f=Math.max(0,(odds*win-lose)/odds),bet=f*br,half=bet/2;const pctEl=document.getElementById('kelly-pct'),betEl=document.getElementById('kelly-bet'),halfEl=document.getElementById('kelly-half'),verd=document.getElementById('kelly-verdict'),box=document.getElementById('kelly-box');if(pctEl)pctEl.textContent=(f*100).toFixed(1)+'%';if(betEl)betEl.textContent='$'+bet.toFixed(2);if(halfEl)halfEl.textContent='$'+half.toFixed(2);if(f<=0){if(box)box.style.borderColor='#f87171';if(verd)verd.innerHTML='<strong style="color:#f87171">Negative EV</strong> — do not bet.';}else if(f>0.25){if(box)box.style.borderColor='#f87171';if(verd)verd.innerHTML=`<strong>⚠️ High Kelly (${(f*100).toFixed(1)}%)</strong> — Consider Half-Kelly ($${half.toFixed(0)}) to reduce variance.`;}else{if(box)box.style.borderColor='var(--gold)';if(verd)verd.innerHTML=`Optimal bet: <strong>$${bet.toFixed(2)}</strong> (${(f*100).toFixed(1)}% of bankroll). EV per bet: <strong>${((win*odds-lose)*bet).toFixed(2)}</strong>.`;}}
 
-// ─── Bubble Factor ───
+// Bubble Factor
 function bfUpdate(){const stack=parseFloat(document.getElementById('bf-stack')?.value||5000),avg=parseFloat(document.getElementById('bf-avg')?.value||8000),players=parseInt(document.getElementById('bf-players')?.value||10),paid=parseInt(document.getElementById('bf-paid')?.value||9),onBubble=players-paid<=2,bf=onBubble?1+(avg/stack)*0.35:1+(avg/stack)*0.15,bfCapped=Math.min(4.0,Math.max(1.0,bf)),pressure=bfCapped<1.3?'Low':bfCapped<1.7?'Medium':bfCapped<2.5?'High':'Extreme',pressureColor=bfCapped<1.3?'#4ade80':bfCapped<1.7?'#fbbf24':bfCapped<2.5?'#f97316':'#f87171';const bv=document.getElementById('bf-val'),bp=document.getElementById('bf-pressure'),ba=document.getElementById('bf-advice');if(bv)bv.textContent=bfCapped.toFixed(2);if(bp){bp.textContent=pressure;bp.style.color=pressureColor;}if(ba)ba.innerHTML=onBubble?`<strong>⚠️ Near the bubble!</strong> BF=${bfCapped.toFixed(2)}. ${stack<avg*0.5?'Short stack — push aggressively.':'Big/avg stack — apply pressure on shorter stacks.'}`:`${players} left, ${paid} paid. BF=${bfCapped.toFixed(2)}. ${bfCapped>1.5?'Significant ICM pressure — tighten up.':'Modest ICM pressure — play near chip EV.'}`;}
 
-// ─── Reference ───
+// Reference
 function initReference(){const cb=document.getElementById('concepts-body');if(cb&&!cb.innerHTML){cb.innerHTML=`<div class="info-box" style="margin-bottom:0.5rem;"><strong>VPIP</strong> — % of hands played preflop. 20–28% typical for 6-max cash.</div><div class="info-box" style="margin-bottom:0.5rem;"><strong>PFR</strong> — % of hands raised preflop. VPIP/PFR of 22/18 = tight-aggressive (TAG).</div><div class="info-box" style="margin-bottom:0.5rem;"><strong>3-Bet %</strong> — % of times you 3-bet. GTO ~8–12% in 6-max.</div><div class="info-box" style="margin-bottom:0.5rem;"><strong>C-Bet</strong> — Continuation Bet on flop after raising preflop. GTO frequency 40–70%.</div><div class="info-box" style="margin-bottom:0.5rem;"><strong>Donk Bet</strong> — OOP player leads into the preflop aggressor.</div><div class="info-box"><strong>Probe Bet</strong> — OOP bet on turn after IP player checked back flop.</div>`;}const pb=document.getElementById('prob-body');if(pb&&!pb.innerHTML){pb.innerHTML=`<div style="line-height:1.9;"><div><strong style="color:var(--gold)">Combinatorics:</strong> Total 2-card hands = C(52,2) = 1,326</div><div><strong style="color:var(--gold)">Pairs:</strong> C(4,2) = 6 combos each rank.</div><div><strong style="color:var(--gold)">Suited:</strong> 4 combos per suited combination.</div><div><strong style="color:var(--gold)">Offsuit:</strong> 12 combos per offsuit combination.</div><hr class="div"><div><strong style="color:var(--gold)">P(flopping a set | pocket pair)</strong> ≈ 11.8%</div><div><strong style="color:var(--gold)">P(flush draw completing by river)</strong> ≈ 35% from flop</div><div><strong style="color:var(--gold)">P(being dealt AA)</strong> = 6/1326 = 0.45%</div></div>`;}const qo=document.getElementById('quick-odds-tbody');if(qo&&!qo.innerHTML){const rows=[['Dealt a pocket pair','5.88%','16:1'],['Dealt AK suited','0.30%','330:1'],['Dealt AK (any)','1.21%','82:1'],['Flop a set (have pair)','11.8%','7.5:1'],['Flush draw hits by river','35.0%','1.86:1'],['OESD hits by river','31.5%','2.18:1'],['Gutshot hits by river','16.5%','5.1:1'],['Full house+ on flop','0.8%','125:1'],['Quads from set','4.3%','22:1']];qo.innerHTML=rows.map(([s,p,o])=>`<tr><td>${s}</td><td class="td-y">${p}</td><td>${o}</td></tr>`).join('');}const pf=document.getElementById('preflop-tbody');if(pf&&!pf.innerHTML){const rows=[['Any pocket pair','78','5.88%'],['Pair of Aces (AA)','6','0.45%'],['AK suited','4','0.30%'],['AK (any)','16','1.21%'],['Suited connector (87s)','4','0.30%'],['Any suited hand','312','23.5%'],['Any broadway hand','120','9.05%']];pf.innerHTML=rows.map(([h,c,p])=>`<tr><td>${h}</td><td class="td-y">${c}</td><td class="td-g">${p}</td></tr>`).join('');}const po=document.getElementById('postflop-tbody');if(po&&!po.innerHTML){const rows=[['Flop top pair (one overcard)','~29%'],['Flop two pair+ (unpaired)','~5%'],['Flop a set (pocket pair)','~11.8%'],['Flop straight (suited connector)','~1.3%'],['Flop flush draw','~10.9%'],['Blank flop (no pair/draw)','~51%'],['Runner-runner flush complete','~4.2%']];po.innerHTML=rows.map(([s,p])=>`<tr><td>${s}</td><td class="td-y">${p}</td></tr>`).join('');}}
 
 // ═══ INIT ═══
